@@ -16,11 +16,13 @@ describe('relays', () => {
     let relay
     it(`should create relay`, () => {
       relay = new Relay(Keypair.generate())
+      relay.index = index
       relays.push(relay)
       relayDescriptors.push(new RelayDescriptor(
         relay.keypair.publicKey,
-        new Uint8Array([127, 0, 0, 1]),
-        new Uint8Array(Buffer.from(port.toString(16), 'hex'))
+        new Uint8Array(Buffer.from(port.toString(16), 'hex')),
+        'ip4',
+        new Uint8Array([127, 0, 0, 1])
       ))
     })
     it(`should create server and listen on 127.0.0.1:${port}`, () => {
