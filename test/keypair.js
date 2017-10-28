@@ -22,4 +22,8 @@ describe('keypair', () => {
     ciphertext.should.not.deep.equal(message)
     bob.getAesCbc(alice.publicKey).getPlaintext(ciphertext).should.deep.equal(message)
   })
+
+  it('should getBurnAddress', () => {
+    alice.getBurnAddress().should.have.length(20)
+  })
 })
