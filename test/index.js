@@ -53,4 +53,17 @@ describe('user', () => {
       console.log('res', res)
     })
   })
+
+  it('should fetch https://images2.alphacoders.com/242/242062.jpg', () => {
+    return request({
+    	url: 'https://images2.alphacoders.com/242/242062.jpg',
+    	strictSSL: true,
+    	agentClass: SocksAgent,
+    	agentOptions: {
+    		socksPort: 8888
+    	}
+    }).then((res) => {
+      console.log('res', res)
+    })
+  })
 })
