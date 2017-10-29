@@ -63,7 +63,7 @@ describe('user', () => {
     		socksPort: 8888
     	}
     }).then((res) => {
-      console.log('res', res)
+      console.log('res', res.length)
     })
   })
 })
