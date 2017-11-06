@@ -5,6 +5,7 @@ const SocksAgent = require('socks5-https-client/lib/Agent')
 const request = require('request-promise')
 const ProxyDescriptor = require('../lib/classes/ProxyDescriptor')
 const Keypair = require('../lib/classes/Keypair')
+const Promise = require('bluebird')
 
 const relays = []
 const relayDescriptors = []
@@ -54,16 +55,44 @@ describe('user', () => {
     })
   })
 
-  it('should fetch https://images2.alphacoders.com/242/242062.jpg', () => {
-    return request({
-    	url: 'https://images2.alphacoders.com/242/242062.jpg',
-    	strictSSL: true,
-    	agentClass: SocksAgent,
-    	agentOptions: {
-    		socksPort: 8888
-    	}
-    }).then((res) => {
-      console.log('res', res.length)
-    })
+  // it('should fetch https://images2.alphacoders.com/242/242062.jpg', () => {
+  //   return request({
+  //   	url: 'https://images2.alphacoders.com/242/242062.jpg',
+  //   	strictSSL: true,
+  //   	agentClass: SocksAgent,
+  //   	agentOptions: {
+  //   		socksPort: 8888
+  //   	}
+  //   }).then((res) => {
+  //     console.log('res', res.length)
+  //   })
+  // })
+
+  it('should fetch multiple sites at once', () => {
+
+    const urls = [
+      'https://cnn.com',
+      'https://foxnews.com',
+      'https://msnbc.com',
+      'https://cnn.com',
+      'https://foxnews.com',
+      'https://msnbc.com',
+      'https://cnn.com',
+      'https://foxnews.com',
+      'https://msnbc.com'
+    ]
+
+    return Promise.all(urls.map((url) => {
+      return request({
+      	url,
+      	strictSSL: true,
+      	agentClass: SocksAgent,
+      	agentOptions: {
+      		socksPort: 8888
+      	}
+      }).then((res) => {
+        console.log('res', url)
+      })
+    }))
   })
 })
