@@ -42,6 +42,10 @@ let server = null
 let proxyCircuit = null
 let isClosing = false
 
+process.on('uncaughtException', function (err) {
+  console.log(err)
+});
+
 const client = new Client(keypair, proxyDescriptors)
 
 client.createProxyCircuitSocks5Server().server.listen(8888, '127.0.0.1')
